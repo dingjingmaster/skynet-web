@@ -8,9 +8,20 @@ const { VueLoaderPlugin } = require('vue-loader/dist/index')
 // 清空 webpack 生成到 dist/ 的文件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+function resolve (dir) {
+    return path.join("..", dir)
+}
+
 module.exports = {
     mode: 'development',                                            // 环境模式
     entry: path.resolve(__dirname, './src/main.js'),                // 打包入口
+    // 支持路径中的 '@'
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            '@@': resolve("src"),
+        },
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),                      // 打包出口
         filename: 'js/[name].js'                                    // 打包完的静态资源文件名
