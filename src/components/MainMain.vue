@@ -10,6 +10,7 @@
 
 <style>
     .i-main-content {
+        min-width: 1200px;
         width: calc(100% - 180px);
         top: 88px;
         left: 80px;
