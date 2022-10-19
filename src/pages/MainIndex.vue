@@ -2,11 +2,19 @@
     <div id="main-index">
         <el-row :gutter="12">
             <el-col :span="6">
-                <MyCard v-bind:price="price"
-                        v-bind:name="name"
-                        v-bind:unit="unit"
-                        v-bind:uTime="uTime"
-                        v-bind:detail="detail">
+                <MyCard v-bind:price="auPrice"
+                        v-bind:name="auName"
+                        v-bind:unit="auUnit"
+                        v-bind:uTime="auUTime"
+                        v-bind:detail="auDetail">
+                </MyCard>
+            </el-col>
+            <el-col :span="6">
+                <MyCard v-bind:price="agPrice"
+                        v-bind:name="agName"
+                        v-bind:unit="agUnit"
+                        v-bind:uTime="agUTime"
+                        v-bind:detail="agDetail">
                 </MyCard>
             </el-col>
         </el-row>
@@ -14,30 +22,53 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import MyCard from '@@/../plugins/LocalCard'
+    import {Notify} from "vant";
 
     export default {
         name: "MainIndex.vue",
         data: function () {
             return {
-                name: "金(Au)",
-                price: "1800",
-                unit: "RMB/kg",
-                uTime: "2022-06-10 17:20:31",
-                detail: [
+                auName: "金(Au)",
+                auPrice: "1800",
+                auUnit: "RMB/g",
+                auUTime: "2022-06-10 17:20:31",
+                auDetail: [
                     {
-                        area: '中国',
-                        price: '1000',
+                        date: '近3天',
+                        average_price: '1000',
                         unit: 'RMB/kg',
                     },
                     {
-                        area: '美国',
-                        price: '2000',
-                        unit: 'RMB/Kg',
+                        date: '近7天',
+                        average_price: '2000',
+                        unit: 'RMB/kg',
                     },
                     {
-                        area: '伦敦',
-                        price: '3000',
+                        date: '近1月',
+                        average_price: '3000',
+                        unit: 'RMB/kg',
+                    },
+                ],
+                agName: "银(Ag)",
+                agPrice: "1800",
+                agUnit: "RMB/g",
+                agUTime: "2022-06-10 17:20:31",
+                agDetail: [
+                    {
+                        date: '近3天',
+                        average_price: '1000',
+                        unit: 'RMB/kg',
+                    },
+                    {
+                        date: '近7天',
+                        average_price: '2000',
+                        unit: 'RMB/kg',
+                    },
+                    {
+                        date: '近1月',
+                        average_price: '3000',
                         unit: 'RMB/kg',
                     },
                 ]
@@ -45,6 +76,64 @@
         },
         components: {
             MyCard
+        },
+        methods : {
+            init () {
+                this.get_au_price_index();
+                this.get_ag_price_index();
+            },
+            get_au_price_index () {
+                const pThis = this;
+                axios ({
+                    url: '/index/au-price',
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    }
+                }).then (function (response) {
+                    const obj = response.data;
+                    console.log(obj);
+                    if (200 === response.status) {
+                        pThis.auPrice = obj['auPrice'].toFixed(3);
+                        pThis.auUTime = obj['auUTime'];
+                        //this.auDetail = obj['auDetail'];
+                    }
+                }).catch(function (error) {
+                    Notify({
+                        type: 'warning',
+                        message: error
+                    });
+                    console.log(error)
+                })
+            },
+            get_ag_price_index () {
+                const pThis = this;
+                axios ({
+                    url: '/index/ag-price',
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    }
+                }).then (function (response) {
+                    const obj = response.data;
+                    if (200 === response.status) {
+                        pThis.agPrice = obj['agPrice'].toFixed(3);
+                        pThis.agUTime = obj['agUTime'];
+                        //this.agDetail = obj['agDetail'];
+                    }
+                }).catch(function (error) {
+                    Notify({
+                        type: 'warning',
+                        message: error
+                    });
+                    console.log(error)
+                })
+            },
+        },
+        created() {
+        },
+        mounted() {
+            this.init();
         }
     }
 </script>

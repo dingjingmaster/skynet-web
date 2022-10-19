@@ -7,9 +7,11 @@ import Router from "./router/index";
 
 import App from './App.vue'                 // 引入 APP 页面组建
 
+import Notify from 'vant'
+
 // 通过 createApp 初始化 app
 const app = createApp(App);
 
 // 将页面挂载到 root 节点
-app.use(Router).use(ElementUI);
+app.use(Router).use(ElementUI).use(Notify);
 app.mount('#app');
