@@ -1,7 +1,7 @@
 <template>
     <div class="i-main">
         <!-- 标题 -->
-        <div class="i-main-title"><h2>信息展示</h2></div>
+        <div class="i-main-title"><a href="/"><h2>信息展示</h2></a></div>
         <div class="clear"></div>
         <hr style="width:100%;height:1px;margin-top:16px;border:none;background-color:#E0E0E0;">
     </div>
@@ -26,6 +26,10 @@
         margin-left: 86px;
         float: left;
         font-family: 楷体, sans-serif;
+    }
+    .i-main-title>a {
+        text-decoration: none;
+        color: #000;
     }
     .i-main-logo>img {
         width: 180px;

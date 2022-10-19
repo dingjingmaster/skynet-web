@@ -22,7 +22,7 @@
     #i-main-menu {
         width: 60px;
         height: 100vh;
-        top: 60px;
+        top: 52px;
         left:0;
         z-index: 998;
         position: fixed;

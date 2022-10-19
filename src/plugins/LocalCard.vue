@@ -16,7 +16,7 @@
                     </el-col>
                 </el-row>
             </div>
-            <el-table v-bind:data=detail style="width: 100%">
+            <el-table v-bind:data=detail style="width: 99%">
                 <el-table-column prop="date" label="时间"/>
                 <el-table-column prop="average_price" label="均价"/>
                 <el-table-column prop="unit" label="单位"/>
@@ -42,10 +42,10 @@
     #i-l-card {
         height: 245px;
     }
-    #i-l-card>.el-card>.el-table>.el-table-column {
+    #i-l-card>.el-card>.el-table>el-table-column {
         font-size: 1px;
     }
-    .el-card {
+    el-card {
         height: 240px;
         min-width: 360px;
         max-width: 380px;
