@@ -31,45 +31,45 @@
         data: function () {
             return {
                 auName: "金(Au)",
-                auPrice: "1800",
+                auPrice: "0",
                 auUnit: "RMB/g",
                 auUTime: "2022-06-10 17:20:31",
                 auDetail: [
                     {
                         date: '近3天',
-                        average_price: '1000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                     {
                         date: '近7天',
-                        average_price: '2000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                     {
                         date: '近1月',
-                        average_price: '3000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                 ],
                 agName: "银(Ag)",
-                agPrice: "1800",
+                agPrice: "0",
                 agUnit: "RMB/g",
                 agUTime: "2022-06-10 17:20:31",
                 agDetail: [
                     {
                         date: '近3天',
-                        average_price: '1000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                     {
                         date: '近7天',
-                        average_price: '2000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                     {
                         date: '近1月',
-                        average_price: '3000',
-                        unit: 'RMB/kg',
+                        average_price: '0',
+                        unit: 'RMB/g',
                     },
                 ]
             }
@@ -93,10 +93,27 @@
                 }).then (function (response) {
                     const obj = response.data;
                     console.log(obj);
+                    // Au
                     if (200 === response.status) {
-                        pThis.auPrice = obj['auPrice'].toFixed(3);
-                        pThis.auUTime = obj['auUTime'];
-                        //this.auDetail = obj['auDetail'];
+                        pThis.auPrice = obj['price'].toFixed(3);
+                        pThis.auUTime = obj['uTime'];
+                        pThis.auDetail = [
+                            {
+                                date: '近3天',
+                                average_price: obj['d3'].toFixed(3),
+                                unit: 'RMB/g',
+                            },
+                            {
+                                date: '近7天',
+                                average_price: obj['d7'].toFixed(3),
+                                unit: 'RMB/g',
+                            },
+                            {
+                                date: '近30天',
+                                average_price: obj['d30'].toFixed(3),
+                                unit: 'RMB/g',
+                            }
+                        ]
                     }
                 }).catch(function (error) {
                     Notify({
@@ -115,11 +132,28 @@
                         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                     }
                 }).then (function (response) {
+                    // Ag
                     const obj = response.data;
                     if (200 === response.status) {
-                        pThis.agPrice = obj['agPrice'].toFixed(3);
-                        pThis.agUTime = obj['agUTime'];
-                        //this.agDetail = obj['agDetail'];
+                        pThis.agPrice = obj['price'].toFixed(3);
+                        pThis.agUTime = obj['uTime'];
+                        pThis.agDetail = [
+                            {
+                                date: '近3天',
+                                average_price: obj['d3'].toFixed(3),
+                                unit: 'RMB/g',
+                            },
+                            {
+                                date: '近7天',
+                                average_price: obj['d7'].toFixed(3),
+                                unit: 'RMB/g',
+                            },
+                            {
+                                date: '近30天',
+                                average_price: obj['d30'].toFixed(3),
+                                unit: 'RMB/g',
+                            }
+                        ];
                     }
                 }).catch(function (error) {
                     Notify({
