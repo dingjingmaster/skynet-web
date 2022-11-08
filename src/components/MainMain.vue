@@ -11,8 +11,9 @@
 <style>
     .i-main-content {
         min-width: 1200px;
-        width: calc(100% - 180px);
-        top: 88px;
+        width: calc(100% - 108px);
+        padding-bottom: 108px;
+        top: 66px;
         left: 80px;
         z-index: 996;
         float: left;
